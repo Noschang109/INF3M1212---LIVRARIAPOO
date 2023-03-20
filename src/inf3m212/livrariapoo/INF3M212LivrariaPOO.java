@@ -106,12 +106,29 @@ public class INF3M212LivrariaPOO {
             System.out.print("Informe o endereço: ");
             endereco = leia.nextLine();
             idCliente = cadCliente.geraID();
-            Cliente cli = new Cliente(idCliente, nomeCliente, cpf, 
+            Cliente cli = new Cliente(idCliente, nomeCliente, cpf,
                     cnpj, endereco, telefone);
             cadCliente.addCliente(cli);
             System.out.println("Cliente cadastrado com sucesso!");
         }
     }//fim cadastrarCliente
+
+    public static void deletarCliente() {
+        System.out.println("-- Deletar Cliente --");
+        System.out.print("Informe o cpf: ");
+        String cpf = leia.next();
+        if (Validadores.isCPF(cpf)) {
+            Cliente cli = cadCliente.getClienteCPF(cpf);
+            if (cli != null) {
+                cadCliente.removeCliente(cli);
+                System.out.println("Cliente deletado com sucesso!");
+            } else {
+                System.out.println("Cliente não consta na base de dados!");
+            }
+        } else {
+            System.out.println("CPF inválido!");
+        }
+    }//fim deletarCliente
 
     /**
      * @param args the command line arguments
@@ -146,10 +163,11 @@ public class INF3M212LivrariaPOO {
                                 break;
                             case 3:
                                 System.out.println("-- Listar --");
-                                System.out.println(cadCliente.getClientes().toString());
+                                listarClientes();
                                 break;
                             case 4:
                                 System.out.println("-- Deletar --");
+                                deletarCliente();
                                 break;
                             case 0:
                                 System.out.println("-- Menu Principal --");
@@ -172,6 +190,15 @@ public class INF3M212LivrariaPOO {
             }
         } while (opM != 0);//fim Sistema
 
+    }
+
+    private static void listarClientes() {
+        for (Cliente cli : cadCliente.getClientes()) {
+            System.out.println("---");
+            System.out.println("CPF:\t" + cli.getCpf());
+            System.out.println("Nome:\t" + cli.getNomeCliente());
+            System.out.println("Fone:\t" + cli.getTelefone());
+        }
     }
 
 }
