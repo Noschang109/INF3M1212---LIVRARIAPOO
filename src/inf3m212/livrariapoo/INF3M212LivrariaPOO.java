@@ -160,6 +160,7 @@ public class INF3M212LivrariaPOO {
                                 break;
                             case 2:
                                 System.out.println("-- Editar --");
+                                editarCliente();
                                 break;
                             case 3:
                                 System.out.println("-- Listar --");
@@ -198,6 +199,73 @@ public class INF3M212LivrariaPOO {
             System.out.println("CPF:\t" + cli.getCpf());
             System.out.println("Nome:\t" + cli.getNomeCliente());
             System.out.println("Fone:\t" + cli.getTelefone());
+        }
+    }
+
+    private static void editarCliente() {
+        System.out.println("-- Editar Cliente --");
+        System.out.print("Informe o CPF: ");
+        String cpf = leia.nextLine();
+        if (Validadores.isCPF(cpf)) {
+            Cliente cli = cadCliente.getClienteCPF(cpf);
+            if (cli != null) {
+                System.out.println("1 - Nome:\t" + cli.getNomeCliente());
+                System.out.println("2 - Endereço:\t" + cli.getEndereco());
+                System.out.println("3 - Fone:\t" + cli.getTelefone());
+                System.out.println("4 - Todos os campos acima?");
+                System.out.print("Qual campo deseja alterar?"
+                        + "\nDigite aqui: ");
+                int opEditar = leiaNumInt();
+                //Sugestão Sérgio INF3M212
+                if (opEditar == 1 || opEditar == 4) {// "||" pipe significa "ou"
+                    System.out.print("Informe o nome: ");
+                    cli.setNomeCliente(leia.nextLine());
+                }
+                if (opEditar == 2 || opEditar == 4) {
+                    System.out.print("Informe o endereço: ");
+                    cli.setEndereco(leia.nextLine());
+                }
+                if (opEditar == 3 || opEditar == 4) {
+                    System.out.print("Informe o telefone: ");
+                    cli.setTelefone(leia.nextLine());
+                }
+                if (opEditar < 1 || opEditar > 4) {
+                    System.out.println("Opção inválida!");
+                }
+                /*
+                switch (opEditar) {
+                    case 1:
+                        System.out.print("Informe o nome: ");
+                        cli.setNomeCliente(leia.nextLine());
+                        break;
+                    case 2:
+                        System.out.print("Informe o endereço: ");
+                        cli.setEndereco(leia.nextLine());
+                        break;
+                    case 3:
+                        System.out.print("Informe o telefone: ");
+                        cli.setTelefone(leia.nextLine());
+                        break;
+                    case 4:
+                        System.out.println("Informe todos os campos abaixo:");
+                        System.out.print("Informe o nome: ");
+                        cli.setNomeCliente(leia.nextLine());
+                        System.out.print("Informe o endereço: ");
+                        cli.setEndereco(leia.nextLine());
+                        System.out.print("Informe o telefone: ");
+                        cli.setTelefone(leia.nextLine());
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+                 */
+                System.out.println("Cliente:\n" + cli.toString());
+            } else {
+                System.out.println("Cliente não cadastrado!");
+            }
+        } else {
+            System.out.println("CPF inválido!");
         }
     }
 
