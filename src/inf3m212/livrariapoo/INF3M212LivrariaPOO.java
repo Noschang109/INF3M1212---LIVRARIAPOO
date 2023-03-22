@@ -13,6 +13,7 @@ import util.Validadores;
 import java.util.Scanner;
 import model.Cliente;
 import model.Editora;
+import model.Livro;
 
 /**
  *
@@ -31,6 +32,18 @@ public class INF3M212LivrariaPOO {
         int num = 99;
         try {
             num = leiaNum.nextInt();
+        } catch (Exception e) {
+            System.out.println("Tente novamente!");
+            leiaNum.nextLine();
+        }
+        return num;
+    }
+
+    public static float leiaNumFloat() {
+        Scanner leiaNum = new Scanner(System.in);
+        float num = 99;
+        try {
+            num = leiaNum.nextFloat();
         } catch (Exception e) {
             System.out.println("Tente novamente!");
             leiaNum.nextLine();
@@ -383,7 +396,7 @@ public class INF3M212LivrariaPOO {
                 }
                 System.out.println("Editora:\n" + edi.toString());
             } else {
-                System.out.println("Editora não cadastrado!");
+                System.out.println("Editora já cadastrado!");
             }
         } else {
             System.out.println("CNPJ inválido!");
@@ -421,6 +434,44 @@ public class INF3M212LivrariaPOO {
 
     private static void cadastrarLivro() {
         System.out.println("-- Cadastro de Livro --");
+        System.out.print("Informe o ISBN: ");
+        String isbn = leia.nextLine();
+        if (cadLivro.getLivroISBN(isbn) != null) {
+            System.out.println("Livro já cadastrado!");
+        } else {
+            int idLivro = cadLivro.geraID();
+            System.out.print("Informe o Titulo: ");
+            String titulo = leia.nextLine();
+            System.out.print("Informe o autor: ");
+            String autor = leia.nextLine();
+            System.out.print("Informe o assunto: ");
+            String assunto = leia.nextLine();
+            System.out.print("Informe o estoque: ");
+            int estoque = leiaNumInt();
+            System.out.print("Informe o preço: ");
+            float preco = leiaNumFloat();
+            boolean isCNPJ = false;
+            Editora idEditora = null;
+            do {
+                System.out.print("Informe o CNPJ da Editora: ");
+                String cnpj = leia.nextLine();
+                isCNPJ = Validadores.isCNPJ(cnpj);
+                if (isCNPJ) {
+                    idEditora = cadEditora.getEditoraCNPJ(cnpj);
+                    if (idEditora == null) {
+                        System.out.println("Editora não cadastrada!");
+                        isCNPJ = false;
+                    } else {
+                        System.out.println("Editora: " + idEditora.getNmEditora());
+                    }
+                } else {
+                    System.out.println("CNPJ inválido!");
+                }
+            } while (!isCNPJ);
+            Livro li = new Livro(idLivro, titulo, autor, assunto, isbn, estoque, preco, idEditora);
+            cadLivro.addLivro(li);
+            System.out.println("Livro cadastrado com sucesso!");
+        }
     }
 
     private static void editarLivro() {
@@ -428,11 +479,29 @@ public class INF3M212LivrariaPOO {
     }
 
     private static void listarLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("-- Lista de Livros --");
+        for (Livro livro : cadLivro.getLivros()) {
+            System.out.println("---\nISBN:\t\t" + livro.getIsbn());
+            System.out.println("Titulo:\t\t" + livro.getTitulo());
+            System.out.println("Assunto:\t" + livro.getAssunto());
+            System.out.println("Autor:\t\t" + livro.getAutor());
+            System.out.println("Estoque:\t" + livro.getEstoque());
+            System.out.println("Preço:\t\t" + livro.getPreco());
+            System.out.println("Editora:\t" + livro.getIdEditora().getNmEditora());
+        }
     }
 
     private static void deletarLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("-- Deletar Livro --");
+        System.out.print("Infome o ISBN: ");
+        String isbn = leia.nextLine();
+        Livro li = cadLivro.getLivroISBN(isbn);
+        if (li != null) {
+            System.out.println("Livro " + li.getTitulo() + " será deletado!");
+            cadLivro.removeLivro(li);
+        }else{
+            System.out.println("ISBN não encontrado!");
+        }
     }
 
 }

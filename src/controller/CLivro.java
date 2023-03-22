@@ -66,7 +66,7 @@ public class CLivro {
         li1.setIsbn("789654123");
         li1.setEstoque(10);
         li1.setPreco((float)16.47);
-        li1.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("456321789321"));
+        li1.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("63527315000101"));
         this.addLivro(li1);
         Livro li2 = new Livro();
         li2.setIdLivro(this.geraID());
@@ -76,7 +76,7 @@ public class CLivro {
         li2.setIsbn("82467319222");
         li2.setEstoque(20);
         li2.setPreco((float)33.99);
-        li2.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("987987456321"));
+        li2.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("63527315000101"));
         this.addLivro(li2);
     }
 
