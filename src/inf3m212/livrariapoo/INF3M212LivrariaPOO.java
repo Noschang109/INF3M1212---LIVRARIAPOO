@@ -12,6 +12,7 @@ import controller.CVendaLivro;
 import util.Validadores;
 import java.util.Scanner;
 import model.Cliente;
+import model.Editora;
 
 /**
  *
@@ -116,7 +117,7 @@ public class INF3M212LivrariaPOO {
     public static void deletarCliente() {
         System.out.println("-- Deletar Cliente --");
         System.out.print("Informe o cpf: ");
-        String cpf = leia.next();
+        String cpf = leia.nextLine();
         if (Validadores.isCPF(cpf)) {
             Cliente cli = cadCliente.getClienteCPF(cpf);
             if (cli != null) {
@@ -156,19 +157,43 @@ public class INF3M212LivrariaPOO {
                             case 1:
                                 System.out.println("-- Cadastrar --");
                                 //usar opM pra definir qual cadastro
-                                cadastrarCliente();
+                                if (opM == 1) {
+                                    cadastrarCliente();
+                                } else if (opM == 2) {
+                                    cadastrarEditora();
+                                } else if (opM == 3) {
+                                    cadastrarLivro();
+                                }
                                 break;
                             case 2:
                                 System.out.println("-- Editar --");
-                                editarCliente();
+                                if (opM == 1) {
+                                    editarCliente();
+                                } else if (opM == 2) {
+                                    editarEditora();
+                                } else if (opM == 3) {
+                                    editarLivro();
+                                }
                                 break;
                             case 3:
                                 System.out.println("-- Listar --");
-                                listarClientes();
+                                if (opM == 1) {
+                                    listarClientes();
+                                } else if (opM == 2) {
+                                    listarEditora();
+                                } else if (opM == 3) {
+                                    listarLivro();
+                                }
                                 break;
                             case 4:
                                 System.out.println("-- Deletar --");
-                                deletarCliente();
+                                if (opM == 1) {
+                                    deletarCliente();
+                                } else if (opM == 2) {
+                                    deletarEditora();
+                                } else if (opM == 3) {
+                                    deletarLivro();
+                                }
                                 break;
                             case 0:
                                 System.out.println("-- Menu Principal --");
@@ -267,6 +292,147 @@ public class INF3M212LivrariaPOO {
         } else {
             System.out.println("CPF inválido!");
         }
+    }
+
+    public static void cadastrarEditora() {
+        int idEditora;
+        String nmEditora;
+        String cnpj;
+        String endereco;
+        String telefone;
+        String gerente;
+
+        System.out.println("-- Cadastrar Editora --");
+        System.out.print("Informe o CNPJ da Editora: ");
+        boolean cnpjis;
+        int opCNPJ;
+        do {
+            cnpj = leia.nextLine();
+            cnpjis = Validadores.isCNPJ(cnpj);
+            if (!cnpjis) {
+                System.out.print("CNPJ Invalido!"
+                        + "\nDeseja tentar novamente? 1 - Sim || 2 - Não: ");
+                opCNPJ = leiaNumInt();
+                if (opCNPJ == 1) {
+                    System.out.print("Informe o CNPJ: ");
+                } else if (opCNPJ == 2) {
+                    System.out.println("Cadastro encerrado pelo usuario!");
+                    break;
+                }
+            }
+
+        } while (!cnpjis);
+
+        if (cadEditora.getEditoraCNPJ(cnpj) != null) {
+            System.out.println("Editora já cadastrada!");
+        } else {
+            System.out.print("Informe o nome da editora: ");
+            nmEditora = leia.nextLine();
+            System.out.print("Informe o telefone da editora: ");
+            telefone = leia.nextLine();
+            System.out.print("Informe o endereço da editora: ");
+            endereco = leia.nextLine();
+            System.out.print("Informe o nome do gerente: ");
+            gerente = leia.nextLine();
+            idEditora = cadEditora.geraID();
+
+            Editora edi = new Editora(idEditora, nmEditora, cnpj, endereco, telefone, gerente);
+            cadEditora.addEditora(edi);
+            System.out.println("Editora cadastrada com sucesso!");
+        }
+    }//fim do cadastrarEditora
+
+    private static void editarEditora() {
+        System.out.println("-- Editar Editora --");
+        System.out.print("Informe o CNPJ: ");
+        String cnpj = leia.nextLine();
+        if (Validadores.isCNPJ(cnpj)) {
+            Editora edi = cadEditora.getEditoraCNPJ(cnpj);
+            if (edi != null) {
+                System.out.println("1 - Nome:\t" + edi.getNmEditora());
+                System.out.println("2 - Endereço:\t" + edi.getEndereco());
+                System.out.println("3 - Fone:\t" + edi.getTelefone());
+                System.out.println("4 - Todas as opções acima");
+                System.out.print("Qual das opções deseja alterar? 1 || 2 || 3 || 4\n Digite aqui: ");
+                int opEditar = leiaNumInt();
+                switch (opEditar) {
+                    case 1:
+                        System.out.print("Informe o nome: ");
+                        edi.setNmEditora(leia.nextLine());
+                        break;
+                    case 2:
+                        System.out.print("Informe o endereço: ");
+                        edi.setEndereco(leia.nextLine());
+                        break;
+                    case 3:
+                        System.out.println("Informe o fone: ");
+                        edi.setTelefone(leia.nextLine());
+                        break;
+                    case 4:
+                        System.out.println("Informe todos os campos abaixo:");
+                        System.out.print("Informe o nome: ");
+                        edi.setNmEditora(leia.nextLine());
+                        System.out.print("Informe o endereço: ");
+                        edi.setEndereco(leia.nextLine());
+                        System.out.print("Informe o fone: ");
+                        edi.setTelefone(leia.nextLine());
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                        break;
+                }
+                System.out.println("Editora:\n" + edi.toString());
+            } else {
+                System.out.println("Editora não cadastrado!");
+            }
+        } else {
+            System.out.println("CNPJ inválido!");
+        }
+    }//fim do editarEditora
+
+    public static void listarEditora() {
+
+        for (Editora edi : cadEditora.getEditoras()) {
+            System.out.println("----");
+            System.out.println("CNPJ:\t" + edi.getCnpj());
+            System.out.println("Nome:\t" + edi.getNmEditora());
+            System.out.println("Fone:\t" + edi.getTelefone());
+        }
+
+    }//fim listarCliente
+
+    public static void deletarEditora() {
+        System.out.println("-- Deletar Editora --");
+        System.out.print("Informe o CNPJ: ");
+        String cnpj = leia.nextLine();
+
+        if (Validadores.isCNPJ(cnpj)) {
+            Editora edi = cadEditora.getEditoraCNPJ(cnpj);
+            if (edi != null) {
+                cadEditora.removeEditora(edi);
+                System.out.println("Editora deletada com sucesso!");
+            } else {
+                System.out.println("Editora não consta na base de dados!");
+            }
+        } else {
+            System.out.println("CNPJ inválido!");
+        }
+    }//fim deletarEditora
+
+    private static void cadastrarLivro() {
+        System.out.println("-- Cadastro de Livro --");
+    }
+
+    private static void editarLivro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static void listarLivro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static void deletarLivro() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

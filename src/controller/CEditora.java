@@ -60,7 +60,7 @@ public class CEditora {
         Editora e1 = new Editora();
         e1.setIdEditora(this.geraID());
         e1.setNmEditora("Abril");
-        e1.setCnpj("987987456321");
+        e1.setCnpj("63527315000101");
         e1.setEndereco("Rua das Oliveiras");
         e1.setTelefone("51888999888");
         e1.setGerente("Juventino");
@@ -68,7 +68,7 @@ public class CEditora {
         Editora e2 = new Editora();
         e2.setIdEditora(this.geraID());
         e2.setNmEditora("Senac");
-        e2.setCnpj("456321789321");
+        e2.setCnpj("14414221000110");
         e2.setEndereco("Rua das Flores");
         e2.setTelefone("51999998888");
         e2.setGerente("Adroaldo");
