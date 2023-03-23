@@ -6,14 +6,15 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 
 /**
  *
  * @author jbferraz
  */
 public class VendaLivro {
+
     private int idVendaLivro;
     private Cliente idCliente;
     private ArrayList<Livro> livros;
@@ -73,7 +74,8 @@ public class VendaLivro {
 
     @Override
     public String toString() {
-        return "VendaLivro{" + "idVendaLivro=" + idVendaLivro + ", idCliente=" + idCliente + ", livros=" + livros + ", subTotal=" + subTotal + ", dataVenda=" + dataVenda + '}';
+        return "Venda" + "\nData Venda:\t" + dataVenda.format(DateTimeFormatter.ofPattern("d/M/y")) 
+                + "\nCliente:\t" + idCliente.getNomeCliente() + "\nlivros:\t" + livros.toString() + "\nSubTotal: R$\t" + subTotal;
     }
-    
+
 }

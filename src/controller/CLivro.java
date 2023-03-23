@@ -63,7 +63,7 @@ public class CLivro {
         li1.setTitulo("Pequeno Principe");
         li1.setAutor("Antoine de Saint-Exupéry");
         li1.setAssunto("Ludico");
-        li1.setIsbn("789654123");
+        li1.setIsbn("123");
         li1.setEstoque(10);
         li1.setPreco((float)16.47);
         li1.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("63527315000101"));
@@ -73,7 +73,7 @@ public class CLivro {
         li2.setTitulo("Harry Potter e a Pedra Filosofal");
         li2.setAutor("J. K. Rowling");
         li2.setAssunto("Ficção/Aventura");
-        li2.setIsbn("82467319222");
+        li2.setIsbn("321");
         li2.setEstoque(20);
         li2.setPreco((float)33.99);
         li2.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("63527315000101"));

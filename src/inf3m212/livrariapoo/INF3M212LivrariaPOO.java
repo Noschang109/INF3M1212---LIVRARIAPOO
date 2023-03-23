@@ -9,11 +9,14 @@ import controller.CCliente;
 import controller.CEditora;
 import controller.CLivro;
 import controller.CVendaLivro;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import util.Validadores;
 import java.util.Scanner;
 import model.Cliente;
 import model.Editora;
 import model.Livro;
+import model.VendaLivro;
 
 /**
  *
@@ -219,6 +222,7 @@ public class INF3M212LivrariaPOO {
                     break;
                 case 4:
                     System.out.println("-- Venda Livro --");
+                    vendaLivro();
                     break;
                 case 0:
                     System.out.println("Aplicação encerrada pelo usuário!");
@@ -490,17 +494,17 @@ public class INF3M212LivrariaPOO {
             System.out.print("Digite aqui: ");
             int op = leiaNumInt();
             if (op == 1 || op == 4) {
-                System.out.println("Titulo atual:\t"+li.getTitulo());
+                System.out.println("Titulo atual:\t" + li.getTitulo());
                 System.out.print("Informe novo titulo: ");
                 li.setTitulo(leia.nextLine());
             }
             if (op == 2 || op == 4) {
-                System.out.println("Estoque atual:\t"+li.getEstoque());
+                System.out.println("Estoque atual:\t" + li.getEstoque());
                 System.out.print("Informe novo estoque: ");
                 li.setEstoque(leiaNumInt());
             }
             if (op == 3 || op == 4) {
-                System.out.println("Preço atual:\t"+li.getPreco());
+                System.out.println("Preço atual:\t" + li.getPreco());
                 System.out.print("Informe novo preço: ");
                 li.setPreco(leiaNumFloat());
             }
@@ -509,7 +513,7 @@ public class INF3M212LivrariaPOO {
             }
             System.out.println("Livro Editado:");
             System.out.println(li.toString());
-        }else{
+        } else {
             System.out.println("ISBN inválido!");
         }
     }
@@ -524,7 +528,7 @@ public class INF3M212LivrariaPOO {
             System.out.println("Estoque:\t" + livro.getEstoque());
             System.out.println("Preço:\t\t" + livro.getPreco());
             System.out.println("Editora:\t" + livro.getIdEditora().getNmEditora());
-*/
+             */
             System.out.println(livro.toString());
         }
     }
@@ -537,9 +541,58 @@ public class INF3M212LivrariaPOO {
         if (li != null) {
             System.out.println("Livro " + li.getTitulo() + " será deletado!");
             cadLivro.removeLivro(li);
-        }else{
+        } else {
             System.out.println("ISBN não encontrado!");
         }
+    }
+
+    private static void vendaLivro() {
+        int idVendaLivro;
+        Cliente idCliente = null;
+        ArrayList<Livro> livros = new ArrayList<>();
+        float subTotal = 0;
+        LocalDate dataVenda = LocalDate.now();
+
+        do {
+            System.out.print("Informe o CPF do Cliente: ");
+            String CPF = leia.nextLine();
+            if (Validadores.isCPF(CPF)) {
+                idCliente = cadCliente.getClienteCPF(CPF);
+                if (idCliente == null) {
+                    System.out.println("Cliente não cadastrado, tente novamente!");
+                }
+            } else {
+                System.out.println("CPF inválido, tente novamente!");
+            }
+        } while (idCliente == null);
+
+        boolean venda = true;
+        do {
+            Livro li = null;
+            String isbn;
+            do {
+                System.out.print("Informe o ISBN: ");
+                isbn = leia.nextLine();
+                li = cadLivro.getLivroISBN(isbn);
+                if (li == null) {
+                    System.out.println("Livro não encontrado, tente novamente!");
+                }
+            } while (li == null);
+            livros.add(li);
+            cadLivro.atualizaEstoqueLivro(li.getIsbn());
+            subTotal += li.getPreco();
+            System.out.println("Deseja comprar mais livros nesta venda?"
+                    + "\n1 - Sim | 2 - Não"
+                    + "\nDigite: ");
+            if (leiaNumInt() == 2) {
+                venda = false;
+            }
+        } while (venda);
+        idVendaLivro = cadVendaLivro.geraID();
+        VendaLivro vl = new VendaLivro(idVendaLivro, idCliente, livros, subTotal, dataVenda);
+        cadVendaLivro.addVendaLivro(vl);
+        System.out.println("-- Venda --\n"
+                + vl.toString());
     }
 
 }

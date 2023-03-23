@@ -99,7 +99,7 @@ public class Livro {
 
     @Override
     public String toString() {
-        return "---" + "\nTitulo:\t\t" + titulo + " \nAutor:\t\t" + autor 
+        return "\n---" + "\nTitulo:\t\t" + titulo + " \nAutor:\t\t" + autor 
                 + " \nAssunto:\t" + assunto + " \nISBN:\t\t" + isbn + " \nEstoque:\t" + estoque 
                 + " \nPreço:\t\t" + preco + " \nEditora:\t" + idEditora.getNmEditora() ;
     }

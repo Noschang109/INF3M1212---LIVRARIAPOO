@@ -79,7 +79,7 @@ public class Editora {
 
     @Override
     public String toString() {
-        return "Editora{" + "idEditora=" + idEditora + ", nmEditora=" + nmEditora + ", cnpj=" + cnpj + ", endereco=" + endereco + ", telefone=" + telefone + ", gerente=" + gerente + '}';
+        return "idEditora=" + idEditora + ", nmEditora=" + nmEditora + ", cnpj=" + cnpj + ", endereco=" + endereco + ", telefone=" + telefone + ", gerente=" + gerente;
     }
     
     
