@@ -553,7 +553,7 @@ public class INF3M212LivrariaPOO {
         float subTotal = 0;
         LocalDate dataVenda = LocalDate.now();
 
-        do {
+        do {//Seleciona Cliente
             System.out.print("Informe o CPF do Cliente: ");
             String CPF = leia.nextLine();
             if (Validadores.isCPF(CPF)) {
@@ -578,9 +578,13 @@ public class INF3M212LivrariaPOO {
                     System.out.println("Livro não encontrado, tente novamente!");
                 }
             } while (li == null);
-            livros.add(li);
-            cadLivro.atualizaEstoqueLivro(li.getIsbn());
-            subTotal += li.getPreco();
+            if (li.getEstoque() > 0) {
+                livros.add(li);
+                cadLivro.atualizaEstoqueLivro(li.getIsbn());
+                subTotal += li.getPreco();
+            } else {
+                System.out.println(li.getTitulo() + " não tem estoque");
+            }
             System.out.println("Deseja comprar mais livros nesta venda?"
                     + "\n1 - Sim | 2 - Não"
                     + "\nDigite: ");
@@ -591,8 +595,7 @@ public class INF3M212LivrariaPOO {
         idVendaLivro = cadVendaLivro.geraID();
         VendaLivro vl = new VendaLivro(idVendaLivro, idCliente, livros, subTotal, dataVenda);
         cadVendaLivro.addVendaLivro(vl);
-        System.out.println("-- Venda --\n"
-                + vl.toString());
+        System.out.println("-- Venda --\n" + vl.toString());
     }
 
 }

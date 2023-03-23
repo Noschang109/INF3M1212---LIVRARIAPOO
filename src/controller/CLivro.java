@@ -64,7 +64,7 @@ public class CLivro {
         li1.setAutor("Antoine de Saint-Exupéry");
         li1.setAssunto("Ludico");
         li1.setIsbn("123");
-        li1.setEstoque(10);
+        li1.setEstoque(1);
         li1.setPreco((float)16.47);
         li1.setIdEditora(INF3M212LivrariaPOO.cadEditora.getEditoraCNPJ("63527315000101"));
         this.addLivro(li1);
