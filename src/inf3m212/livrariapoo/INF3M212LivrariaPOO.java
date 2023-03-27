@@ -117,11 +117,11 @@ public class INF3M212LivrariaPOO {
             System.out.println("Cliente já cadastrado!");
         } else {
             System.out.print("Informe o nome: ");
-            nomeCliente = leia.nextLine();
+            nomeCliente = leia.nextLine().toUpperCase(); 
             System.out.print("Informe o telefone: ");
             telefone = leia.nextLine();
             System.out.print("Informe o endereço: ");
-            endereco = leia.nextLine();
+            endereco = leia.nextLine().toUpperCase();
             idCliente = cadCliente.geraID();
             Cliente cli = new Cliente(idCliente, nomeCliente, cpf,
                     cnpj, endereco, telefone);
@@ -261,11 +261,11 @@ public class INF3M212LivrariaPOO {
                 //Sugestão Sérgio INF3M212
                 if (opEditar == 1 || opEditar == 4) {// "||" pipe significa "ou"
                     System.out.print("Informe o nome: ");
-                    cli.setNomeCliente(leia.nextLine());
+                    cli.setNomeCliente(leia.nextLine().toUpperCase());
                 }
                 if (opEditar == 2 || opEditar == 4) {
                     System.out.print("Informe o endereço: ");
-                    cli.setEndereco(leia.nextLine());
+                    cli.setEndereco(leia.nextLine().toUpperCase());
                 }
                 if (opEditar == 3 || opEditar == 4) {
                     System.out.print("Informe o telefone: ");
@@ -344,13 +344,13 @@ public class INF3M212LivrariaPOO {
             System.out.println("Editora já cadastrada!");
         } else {
             System.out.print("Informe o nome da editora: ");
-            nmEditora = leia.nextLine();
+            nmEditora = leia.nextLine().toUpperCase();
             System.out.print("Informe o telefone da editora: ");
             telefone = leia.nextLine();
             System.out.print("Informe o endereço da editora: ");
-            endereco = leia.nextLine();
+            endereco = leia.nextLine().toUpperCase();
             System.out.print("Informe o nome do gerente: ");
-            gerente = leia.nextLine();
+            gerente = leia.nextLine().toUpperCase();
             idEditora = cadEditora.geraID();
 
             Editora edi = new Editora(idEditora, nmEditora, cnpj, endereco, telefone, gerente);
@@ -445,11 +445,11 @@ public class INF3M212LivrariaPOO {
         } else {
             int idLivro = cadLivro.geraID();
             System.out.print("Informe o Titulo: ");
-            String titulo = leia.nextLine();
+            String titulo = leia.nextLine().toUpperCase();
             System.out.print("Informe o autor: ");
-            String autor = leia.nextLine();
+            String autor = leia.nextLine().toUpperCase();
             System.out.print("Informe o assunto: ");
-            String assunto = leia.nextLine();
+            String assunto = leia.nextLine().toUpperCase();
             System.out.print("Informe o estoque: ");
             int estoque = leiaNumInt();
             System.out.print("Informe o preço: ");
@@ -496,7 +496,7 @@ public class INF3M212LivrariaPOO {
             if (op == 1 || op == 4) {
                 System.out.println("Titulo atual:\t" + li.getTitulo());
                 System.out.print("Informe novo titulo: ");
-                li.setTitulo(leia.nextLine());
+                li.setTitulo(leia.nextLine().toUpperCase());
             }
             if (op == 2 || op == 4) {
                 System.out.println("Estoque atual:\t" + li.getEstoque());
