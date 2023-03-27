@@ -109,7 +109,7 @@ public class INF3M212LivrariaPOO {
                     System.out.print("Informe o CPF: ");
                 } else if (opCPF == 2) {
                     System.out.println("Cadastro cancelado pelo usuário!");
-                    break;
+                    return;
                 }
             }
         } while (!cpfIs);
@@ -334,7 +334,7 @@ public class INF3M212LivrariaPOO {
                     System.out.print("Informe o CNPJ: ");
                 } else if (opCNPJ == 2) {
                     System.out.println("Cadastro encerrado pelo usuario!");
-                    break;
+                    return;
                 }
             }
 
